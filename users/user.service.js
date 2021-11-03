@@ -23,6 +23,8 @@ async function authenticate({ username, password }) {
             ...userWithoutPassword,
             token
         };
+    } else {
+        throw new Error("Cannot find user!");
     }
 }
 
