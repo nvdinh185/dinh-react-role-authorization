@@ -1,5 +1,8 @@
-# react-role-based-authorization-example
+# node-role-based-authorization-api
 
-React - Role Based Authorization Tutorial & Example
+Node.js Role Based Authorization API
 
-To see a demo and further details go to http://jasonwatmore.com/post/2019/02/01/react-role-based-authorization-tutorial-with-example
+For documentation and instructions check out https://jasonwatmore.com/post/2018/11/28/nodejs-role-based-authorization-tutorial-with-example-api
+
+# create secret random
+ https://www.guidgenerator.com/
