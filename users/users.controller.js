@@ -5,13 +5,20 @@ const authorize = require('_helpers/authorize');
 const Role = require('_helpers/role');
 
 // routes
-router.post('/authenticate', authenticate);     // public route
+router.post('/login', login);     // public route
+router.post('/signup', signup);     // public route
 router.get('/', authorize(Role.Admin), getAll); // admin only
-router.get('/:id', authorize(), getById);       // all authenticated users
+router.get('/:id', authorize(), getById);       // all logined users
 module.exports = router;
 
-function authenticate(req, res, next) {
-    userService.authenticate(req.body)
+function signup(req, res, next) {
+    userService.signup(req.body)
+        .then(user => user ? res.json(user) : res.status(400).json({ message: 'Error!' }))
+        .catch(err => next(err));
+}
+
+function login(req, res, next) {
+    userService.login(req.body)
         .then(user => user ? res.json(user) : res.status(400).json({ message: 'Username or password is incorrect' }))
         .catch(err => next(err));
 }

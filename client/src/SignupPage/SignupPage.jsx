@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 import { authenticationService } from '@/_services';
 
-class LoginPage extends React.Component {
+class SignupPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -22,23 +22,26 @@ class LoginPage extends React.Component {
                     <strong>Normal User</strong> - U: user P: user<br />
                     <strong>Administrator</strong> - U: admin P: admin
                 </div>
-                <h2>Login</h2>
+                <h2>Signup</h2>
                 <Formik
                     initialValues={{
                         username: '',
-                        password: ''
+                        password: '',
+                        firstName: '',
+                        lastName: ''
                     }}
                     validationSchema={Yup.object().shape({
                         username: Yup.string().required('Username is required'),
-                        password: Yup.string().required('Password is required')
+                        password: Yup.string().required('Password is required'),
+                        firstName: Yup.string().required('FirstName is required'),
+                        lastName: Yup.string().required('LastName is required')
                     })}
-                    onSubmit={({ username, password }, { setStatus, setSubmitting }) => {
+                    onSubmit={({ username, password, firstName, lastName }, { setStatus, setSubmitting }) => {
                         setStatus();
-                        authenticationService.login(username, password)
+                        authenticationService.signup(username, password, firstName, lastName)
                             .then(
                                 user => {
-                                    const { from } = this.props.location.state || { from: { pathname: "/" } };
-                                    this.props.history.push(from);
+                                    this.props.history.push('/');
                                 },
                                 error => {
                                     setSubmitting(false);
@@ -59,7 +62,17 @@ class LoginPage extends React.Component {
                                 <ErrorMessage name="password" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-group">
-                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Login</button>
+                                <label htmlFor="firstName">firstName</label>
+                                <Field name="firstName" type="text" className={'form-control' + (errors.firstName && touched.firstName ? ' is-invalid' : '')} />
+                                <ErrorMessage name="firstName" component="div" className="invalid-feedback" />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="lastName">lastName</label>
+                                <Field name="lastName" type="text" className={'form-control' + (errors.lastName && touched.lastName ? ' is-invalid' : '')} />
+                                <ErrorMessage name="lastName" component="div" className="invalid-feedback" />
+                            </div>
+                            <div className="form-group">
+                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Signup</button>
                                 {isSubmitting &&
                                     <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                                 }
@@ -70,12 +83,12 @@ class LoginPage extends React.Component {
                         </Form>
                     )}
                 />
-                <NavLink to="/signup">
-                    Signup
+                <NavLink to="/login">
+                    Login
                 </NavLink>
             </div>
         )
     }
 }
 
-export { LoginPage };
+export { SignupPage };

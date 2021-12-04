@@ -6,11 +6,28 @@ import { handleResponse } from '@/_helpers';
 const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
 
 export const authenticationService = {
+    signup,
     login,
     logout,
     currentUser: currentUserSubject.asObservable(),
-    get currentUserValue () { return currentUserSubject.value }
+    get currentUserValue() { return currentUserSubject.value }
 };
+
+function signup(username, password, firstName, lastName) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password, firstName, lastName })
+    };
+
+    return fetch(`${config.apiUrl}/users/signup`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            console.log("user: ", user);
+
+            return user;
+        });
+}
 
 function login(username, password) {
     const requestOptions = {
@@ -19,7 +36,7 @@ function login(username, password) {
         body: JSON.stringify({ username, password })
     };
 
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
+    return fetch(`${config.apiUrl}/users/login`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
