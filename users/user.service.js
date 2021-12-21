@@ -1,11 +1,12 @@
 ﻿const config = require('config.json');
 const jwt = require('jsonwebtoken');
 const Role = require('_helpers/role');
+const { v4: uuidv4 } = require('uuid');
 
 // users hardcoded for simplicity, store in a db for production applications
 const users = [
-    { id: 1, username: 'admin', password: 'admin', firstName: 'Admin', lastName: 'User', role: Role.Admin },
-    { id: 2, username: 'user', password: 'user', firstName: 'Normal', lastName: 'User', role: Role.User }
+    { id: 1, username: 'admin', password: 'admin', firstname: 'Admin', lastname: 'User', role: Role.Admin },
+    { id: 2, username: 'user', password: 'user', firstname: 'Normal', lastname: 'User', role: Role.User }
 ];
 
 module.exports = {
@@ -15,10 +16,10 @@ module.exports = {
     getById
 };
 
-async function signup({ username, password, firstName, lastName }) {
-    const user = { id: users.length + 1, username, password, firstName, lastName, role: Role.User };
+async function signup({ username, password, firstname, lastname }) {
+    const user = { id: uuidv4(), username, password, firstname, lastname, role: Role.User };
     users.push(user);
-    return { username, firstName, lastName, role: Role.User };
+    return { username, firstname, lastname, role: Role.User };
 }
 
 async function login({ username, password }) {

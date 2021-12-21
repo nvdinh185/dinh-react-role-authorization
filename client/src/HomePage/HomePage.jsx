@@ -29,7 +29,7 @@ class HomePage extends React.Component {
                     Current user from secure api end point:
                     {userFromApi &&
                         <ul>
-                            <li>{userFromApi.firstName} {userFromApi.lastName}</li>
+                            <li>{userFromApi.firstname} {userFromApi.lastname}</li>
                         </ul>
                     }
                 </div>

@@ -18,27 +18,23 @@ class SignupPage extends React.Component {
     render() {
         return (
             <div>
-                <div className="alert alert-info">
-                    <strong>Normal User</strong> - U: user P: user<br />
-                    <strong>Administrator</strong> - U: admin P: admin
-                </div>
                 <h2>Signup</h2>
                 <Formik
                     initialValues={{
                         username: '',
                         password: '',
-                        firstName: '',
-                        lastName: ''
+                        firstname: '',
+                        lastname: ''
                     }}
                     validationSchema={Yup.object().shape({
                         username: Yup.string().required('Username is required'),
                         password: Yup.string().required('Password is required'),
-                        firstName: Yup.string().required('FirstName is required'),
-                        lastName: Yup.string().required('LastName is required')
+                        firstname: Yup.string().required('Firstname is required'),
+                        lastname: Yup.string().required('Lastname is required')
                     })}
-                    onSubmit={({ username, password, firstName, lastName }, { setStatus, setSubmitting }) => {
+                    onSubmit={({ username, password, firstname, lastname }, { setStatus, setSubmitting }) => {
                         setStatus();
-                        authenticationService.signup(username, password, firstName, lastName)
+                        authenticationService.signup(username, password, firstname, lastname)
                             .then(
                                 user => {
                                     this.props.history.push('/');
@@ -62,14 +58,14 @@ class SignupPage extends React.Component {
                                 <ErrorMessage name="password" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="firstName">firstName</label>
-                                <Field name="firstName" type="text" className={'form-control' + (errors.firstName && touched.firstName ? ' is-invalid' : '')} />
-                                <ErrorMessage name="firstName" component="div" className="invalid-feedback" />
+                                <label htmlFor="firstname">Firstname</label>
+                                <Field name="firstname" type="text" className={'form-control' + (errors.firstname && touched.firstname ? ' is-invalid' : '')} />
+                                <ErrorMessage name="firstname" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="lastName">lastName</label>
-                                <Field name="lastName" type="text" className={'form-control' + (errors.lastName && touched.lastName ? ' is-invalid' : '')} />
-                                <ErrorMessage name="lastName" component="div" className="invalid-feedback" />
+                                <label htmlFor="lastname">Lastname</label>
+                                <Field name="lastname" type="text" className={'form-control' + (errors.lastname && touched.lastname ? ' is-invalid' : '')} />
+                                <ErrorMessage name="lastname" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Signup</button>
