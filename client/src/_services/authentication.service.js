@@ -30,6 +30,8 @@ function signup(username, password, firstname, lastname) {
 }
 
 function login(username, password) {
+    console.log(username);
+    console.log(typeof (username));
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

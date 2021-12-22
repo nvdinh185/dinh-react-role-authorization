@@ -6,9 +6,9 @@ import { authenticationService } from '@/_services';
 import { PrivateRoute } from '@/_components';
 import { HomePage } from '@/HomePage';
 import { SignupPage } from '@/SignupPage';
+import { UsersPage } from '@/UsersPage';
 import { AdminPage } from '@/AdminPage';
 import { LoginPage } from '@/LoginPage';
-
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -53,6 +53,7 @@ class App extends React.Component {
                                     <PrivateRoute path="/admin" roles={[Role.Admin]} component={AdminPage} />
                                     <Route path="/signup" component={SignupPage} />
                                     <Route path="/login" component={LoginPage} />
+                                    <Route path="/users" component={UsersPage} />
                                 </div>
                             </div>
                         </div>

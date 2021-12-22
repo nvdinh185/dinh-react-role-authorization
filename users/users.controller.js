@@ -1,6 +1,7 @@
 ﻿const express = require('express');
 const router = express.Router();
 const userService = require('./user.service');
+const userHandler = require('./user.handler');
 const authorize = require('_helpers/authorize');
 const Role = require('_helpers/role');
 
@@ -9,6 +10,8 @@ router.post('/login', login);     // public route
 router.post('/signup', signup);     // public route
 router.get('/', authorize(Role.Admin), getAll); // admin only
 router.get('/:id', authorize(), getById);       // all logined users
+
+router.post('/del', authorize(Role.Admin), deleteById);       // all logined users
 module.exports = router;
 
 function signup(req, res, next) {
@@ -41,4 +44,16 @@ function getById(req, res, next) {
     userService.getById(id)
         .then(user => user ? res.json(user) : res.sendStatus(404))
         .catch(err => next(err));
+}
+
+function deleteById(req, res, next) {
+    userHandler.deleteById(req.body)
+        .then(results => {
+            // console.log("results: ", results);
+            res.json(results);
+        })
+        .catch(err => {
+            // console.log("err: ", err);
+            next(err);
+        });
 }

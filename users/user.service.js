@@ -23,13 +23,14 @@ async function signup({ username, password, firstname, lastname }) {
 }
 
 async function login({ username, password }) {
+    console.log(username);
     const user = await new Promise((resolve, reject) => {
         db.each(`SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`, (err, row) => {
             if (err) reject(err);
             resolve(row);
         })
     })
-    console.log(user);
+    // console.log(user);
     if (user) {
         const token = jwt.sign({ sub: user.id, role: user.role }, config.secret);
         const { password, ...userWithoutPassword } = user;

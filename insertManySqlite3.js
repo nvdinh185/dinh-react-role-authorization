@@ -23,7 +23,7 @@ db.serialize(() => {
   const stmt = db.prepare("INSERT INTO users (id, username, password, firstname, lastname, role) VALUES (?, ?, ?, ?, ?, ?)");
 
   for (let i = 1; i < 6; i++) {
-    stmt.run(uuidv4(), "user" + i, "123", "User ", "" + i, 2);
+    stmt.run(uuidv4(), "user" + i, "123", "User ", "" + i, 1);
   }
   stmt.finalize();
 
