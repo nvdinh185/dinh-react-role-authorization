@@ -3,11 +3,11 @@ const jwt = require('jsonwebtoken');
 const Role = require('_helpers/role');
 const { v4: uuidv4 } = require('uuid');
 
-// users hardcoded for simplicity, store in a db for production applications
-const users = [
-    { id: 1, username: 'admin', password: 'admin', firstname: 'Admin', lastname: 'User', role: Role.Admin },
-    { id: 2, username: 'user', password: 'user', firstname: 'Normal', lastname: 'User', role: Role.User }
-];
+const sqlite3 = require('sqlite3').verbose();
+const dbFile = './database/users.db';
+const db = new sqlite3.Database(dbFile);
+
+db.serialize();
 
 module.exports = {
     signup,
@@ -18,12 +18,18 @@ module.exports = {
 
 async function signup({ username, password, firstname, lastname }) {
     const user = { id: uuidv4(), username, password, firstname, lastname, role: Role.User };
-    users.push(user);
+    // users.push(user);
     return { username, firstname, lastname, role: Role.User };
 }
 
 async function login({ username, password }) {
-    const user = users.find(u => u.username === username && u.password === password);
+    const user = await new Promise((resolve, reject) => {
+        db.each(`SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`, (err, row) => {
+            if (err) reject(err);
+            resolve(row);
+        })
+    })
+    console.log(user);
     if (user) {
         const token = jwt.sign({ sub: user.id, role: user.role }, config.secret);
         const { password, ...userWithoutPassword } = user;
@@ -37,6 +43,12 @@ async function login({ username, password }) {
 }
 
 async function getAll() {
+    const users = await new Promise((resolve, reject) => {
+        db.all(`SELECT * FROM users`, (err, row) => {
+            if (err) reject(err);
+            resolve(row);
+        })
+    })
     return users.map(u => {
         const { password, ...userWithoutPassword } = u;
         return userWithoutPassword;
@@ -44,8 +56,15 @@ async function getAll() {
 }
 
 async function getById(id) {
-    const user = users.find(u => u.id === parseInt(id));
+    const user = await new Promise((resolve, reject) => {
+        db.each(`SELECT * FROM users WHERE id = '${id}'`, (err, row) => {
+            if (err) reject(err);
+            resolve(row);
+        })
+    })
     if (!user) return;
     const { password, ...userWithoutPassword } = user;
     return userWithoutPassword;
 }
+
+// db.close();
