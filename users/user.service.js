@@ -1,6 +1,5 @@
 ﻿const config = require('config.json');
 const jwt = require('jsonwebtoken');
-const Role = require('_helpers/role');
 const { v4: uuidv4 } = require('uuid');
 
 const sqlite3 = require('sqlite3').verbose();
@@ -17,29 +16,37 @@ module.exports = {
 };
 
 async function signup({ username, password, firstname, lastname }) {
-    const user = { id: uuidv4(), username, password, firstname, lastname, role: Role.User };
-    // users.push(user);
-    return { username, firstname, lastname, role: Role.User };
+    return new Promise((resolve, reject) => {
+        db.run(`INSERT INTO users(id, username, password, firstname, lastname, role) VALUES(?, ?, ?, ?, ?, ?)`,
+            [uuidv4(), username, password, firstname, lastname, 2], function (err) {
+                if (err) reject(new Error(`Lỗi: ${err.message}`));
+                resolve(this.lastID);
+            })
+    })
 }
 
 async function login({ username, password }) {
-    console.log(username);
-    const user = await new Promise((resolve, reject) => {
-        db.each(`SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`, (err, row) => {
-            if (err) reject(err);
-            resolve(row);
+    try {
+        const user = await new Promise((resolve, reject) => {
+            db.all(`SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`, (err, row) => {
+                if (err) reject(err);
+                resolve(row);
+            })
         })
-    })
-    // console.log(user);
-    if (user) {
-        const token = jwt.sign({ sub: user.id, role: user.role }, config.secret);
-        const { password, ...userWithoutPassword } = user;
-        return {
-            ...userWithoutPassword,
-            token
-        };
-    } else {
-        throw new Error("Cannot find user!");
+        // console.log(user);
+        if (user && user[0]) {
+            const token = jwt.sign({ sub: user[0].id, role: user[0].role }, config.secret);
+            const { password, ...userWithoutPassword } = user[0];
+            return {
+                ...userWithoutPassword,
+                token
+            };
+        } else {
+            throw new Error("Cannot find user!");
+        }
+
+    } catch (error) {
+        throw new Error(error);
     }
 }
 
