@@ -36,7 +36,7 @@ class SignupPage extends React.Component {
                         setStatus();
                         authenticationService.signup(username, password, firstname, lastname)
                             .then(
-                                user => {
+                                lastID => {
                                     this.props.history.push('/');
                                 },
                                 error => {

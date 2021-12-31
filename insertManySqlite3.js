@@ -19,7 +19,7 @@ db.serialize(() => {
   //Tạo cơ sở dữ liệu
   db.run(sql);
 
-  // Thêm bản ghi vào cơ sở dữ liệu
+  // Thêm bản ghi vào table
   const stmt = db.prepare("INSERT INTO users (id, username, password, firstname, lastname, role) VALUES (?, ?, ?, ?, ?, ?)");
 
   for (let i = 1; i < 6; i++) {

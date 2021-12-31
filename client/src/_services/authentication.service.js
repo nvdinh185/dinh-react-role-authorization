@@ -22,16 +22,14 @@ function signup(username, password, firstname, lastname) {
 
     return fetch(`${config.apiUrl}/users/signup`, requestOptions)
         .then(handleResponse)
-        .then(user => {
-            console.log("user: ", user);
+        .then(lastID => {
+            console.log("lastID: ", lastID);
 
-            return user;
+            return lastID;
         });
 }
 
 function login(username, password) {
-    console.log(username);
-    console.log(typeof (username));
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

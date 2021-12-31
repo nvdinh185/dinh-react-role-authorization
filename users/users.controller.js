@@ -11,12 +11,12 @@ router.post('/signup', signup);     // public route
 router.get('/', authorize(Role.Admin), getAll); // admin only
 router.get('/:id', authorize(), getById);       // all logined users
 
-router.post('/del', authorize(Role.Admin), deleteById);       // all logined users
+router.post('/del', authorize(Role.Admin), deleteById);       // admin only
 module.exports = router;
 
 function signup(req, res, next) {
     userService.signup(req.body)
-        .then(user => user ? res.json(user) : res.status(400).json({ message: 'Error!' }))
+        .then(lastID => res.json(lastID))
         .catch(err => next(err));
 }
 
