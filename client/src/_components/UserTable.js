@@ -26,8 +26,8 @@ export const UserTable = (props) => {
                             <td style={myBody}>{user.firstname}</td>
                             <td style={myBody}>{user.lastname}</td>
                             <td style={myBody}>
-                                <button onClick={() => props.editRow(user)}>Edit</button>
-                                <button onClick={() => props.deleteUser(user.id)}>Delete</button>
+                                <button onClick={() => props.updateUser(user)} className="btn btn-primary">Edit</button>
+                                <button onClick={() => props.deleteUser(user.id)} className="btn btn-danger">Delete</button>
                             </td>
                         </tr>
                     ))

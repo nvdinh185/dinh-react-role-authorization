@@ -12,6 +12,8 @@ router.get('/', authorize(Role.Admin), getAll); // admin only
 router.get('/:id', authorize(), getById);       // all logined users
 
 router.post('/del', authorize(Role.Admin), deleteById);       // admin only
+router.post('/add', authorize(Role.Admin), addNewUser);       // admin only
+router.post('/update', authorize(Role.Admin), updateUser);       // admin only
 module.exports = router;
 
 function signup(req, res, next) {
@@ -48,6 +50,30 @@ function getById(req, res, next) {
 
 function deleteById(req, res, next) {
     userHandler.deleteById(req.body)
+        .then(results => {
+            // console.log("results: ", results);
+            res.json(results);
+        })
+        .catch(err => {
+            // console.log("err: ", err);
+            next(err);
+        });
+}
+
+function addNewUser(req, res, next) {
+    userHandler.addNewUser(req.body)
+        .then(results => {
+            // console.log("results: ", results);
+            res.json(results);
+        })
+        .catch(err => {
+            // console.log("err: ", err);
+            next(err);
+        });
+}
+
+function updateUser(req, res, next) {
+    userHandler.updateUser(req.body)
         .then(results => {
             // console.log("results: ", results);
             res.json(results);
