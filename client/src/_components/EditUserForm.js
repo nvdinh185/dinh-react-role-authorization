@@ -30,7 +30,7 @@ export const EditUserForm = (props) => {
       <label>Lastname</label>
       <input type="text" name="lastname" value={user.lastname} onChange={handleInputChange} /><br />
       <button className="btn btn-success">Update</button>
-      <button onClick={() => props.setEditing(false)} className="btn btn-danger">
+      <button onClick={() => props.setEditing()} className="btn btn-danger">
         Cancel
       </button>
     </form>

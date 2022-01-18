@@ -11,6 +11,11 @@ module.exports = {
             }
         ]
     },
+    output: {
+        filename: "[name].js",
+        sourceMapFilename: "[name].js.map"
+    },
+    devtool: "source-map",
     resolve: {
         extensions: ['.js', '.jsx'],
         alias: {

@@ -3,13 +3,8 @@ import regeneratorRuntime from "regenerator-runtime";
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { UserTable } from '@/_components';
-import { AddUserForm } from '@/_components';
-import { EditUserForm } from '@/_components';
-import { authenticationService } from '@/_services';
-
-import { userService } from '@/_services';
-import { userHandler } from '@/_services';
+import { UserTable, AddUserForm, EditUserForm } from '@/_components';
+import { authenticationService, userService, userHandler } from '@/_services';
 
 class UsersPage extends React.Component {
 

@@ -29,7 +29,7 @@ export const AddUserForm = (props) => {
             <label>Lastname</label>
             <input type="text" name="lastname" value={user.lastname} onChange={handleInputChange} /><br />
             <button className="btn btn-success">Add</button>
-            <button onClick={() => props.setAdding(false)} className="btn btn-danger">Cancel</button>
+            <button onClick={() => props.setAdding()} className="btn btn-danger">Cancel</button>
         </form>
     );
 }

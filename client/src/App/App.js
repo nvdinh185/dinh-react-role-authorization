@@ -54,7 +54,7 @@ class App extends React.Component {
                                     <PrivateRoute path="/admin" roles={[Role.Admin]} component={AdminPage} />
                                     <Route path="/signup" component={SignupPage} />
                                     <Route path="/login" component={LoginPage} />
-                                    <Route path="/users" component={UsersPage} />
+                                    <PrivateRoute path="/users" roles={[Role.Admin]} component={UsersPage} />
                                 </div>
                             </div>
                         </div>

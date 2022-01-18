@@ -65,13 +65,13 @@ async function getAll() {
 
 async function getById(id) {
     const user = await new Promise((resolve, reject) => {
-        db.each(`SELECT * FROM users WHERE id = '${id}'`, (err, row) => {
+        db.all(`SELECT * FROM users WHERE id = '${id}'`, (err, row) => {
             if (err) reject(err);
             resolve(row);
         })
     })
-    if (!user) return;
-    const { password, ...userWithoutPassword } = user;
+    if (!user[0]) return;
+    const { password, ...userWithoutPassword } = user[0];
     return userWithoutPassword;
 }
 

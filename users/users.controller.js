@@ -2,7 +2,7 @@
 const router = express.Router();
 const userService = require('./user.service');
 const userHandler = require('./user.handler');
-const authorize = require('_helpers/authorize');
+const authorize = require('_helpers/authorize2');
 const Role = require('_helpers/role');
 
 // routes
@@ -24,7 +24,7 @@ function signup(req, res, next) {
 
 function login(req, res, next) {
     userService.login(req.body)
-        .then(user => user ? res.json(user) : res.status(400).json({ message: 'Username or password is incorrect' }))
+        .then(user => res.json(user))
         .catch(err => next(err));
 }
 
