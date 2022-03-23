@@ -43,3 +43,13 @@ Use these steps to clone from SourceTree, our client for using the repository co
 4. Open the directory you just created to see your repository’s files.
 
 Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+
+
+## Một số nguồn mình thao khảo
+1. https://www.atlassian.com/continuous-delivery/tutorials
+
+2. https://www.youtube.com/watch?v=q-lwO5Pdqv0
+
+3. https://medium.com/jodocus-blog/deploy-a-react-app-to-heroku-with-bitbucket-pipelines-b54d642b23a5
+
+4. https://support.atlassian.com/bitbucket-cloud/docs/build-test-and-deploy-with-pipelines/
