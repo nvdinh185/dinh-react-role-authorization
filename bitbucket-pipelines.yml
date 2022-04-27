@@ -6,4 +6,4 @@ pipelines:
          script:
             - npm install
             - npm run build
-            - git push https://heroku:7294ae3f-3983-4b27-9de7-7a4798a01d83@git.heroku.com/dinh-react.git HEAD
+            - git push https://heroku:7294ae3f-3983-4b27-9de7-7a4798a01d83@git.heroku.com/dinh-react-cicd.git HEAD
