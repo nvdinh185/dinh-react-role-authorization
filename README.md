@@ -53,3 +53,5 @@ Now that you're more familiar with your Bitbucket repository, go ahead and add a
 3. https://medium.com/jodocus-blog/deploy-a-react-app-to-heroku-with-bitbucket-pipelines-b54d642b23a5
 
 4. https://support.atlassian.com/bitbucket-cloud/docs/build-test-and-deploy-with-pipelines/
+
+5. https://hackernoon.com/deploy-a-react-app-to-heroku-with-bitbucket-pipelines-3de3uac

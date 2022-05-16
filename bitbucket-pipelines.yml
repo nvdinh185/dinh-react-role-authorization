@@ -3,7 +3,7 @@ pipelines:
  branches:
    master:
      - step:
-         script:
-            - npm install
-            - npm run build
-            - git push https://heroku:f08f9c76-8199-42e8-9624-575f6f669e06@git.heroku.com/dinh-react-cicd.git HEAD
+        script:
+          - npm install
+          - npm run build
+          - git push https://heroku:38c94d1e-065a-453f-b8b8-7f86190a45d3@git.heroku.com/dinh-react-role-authorization.git HEAD
