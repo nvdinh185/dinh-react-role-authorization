@@ -14,7 +14,8 @@ class UsersPage extends React.Component {
             users: [],
             currentUser: {},
             isEdit: false,
-            isAdd: false
+            isAdd: false,
+            status: ''
         };
     }
 
@@ -49,12 +50,14 @@ class UsersPage extends React.Component {
             this.setState({ users: newListUsers });
             this.setState({ isAdd: false });
         } catch (error) {
-            console.log(`Lỗi: ${error}`);
+            // console.log(`Lỗi: ${error}`);
+            this.setState({ status: `${error}` });
         }
     }
 
     setAdding = () => {
         this.setState({ isAdd: false });
+        this.setState({ status: '' });
     }
 
     callUpdateUser = (user) => {
@@ -79,6 +82,7 @@ class UsersPage extends React.Component {
 
     render() {
         const { users } = this.state;
+        const { status } = this.state;
         return (
             <div>
                 {this.state.isEdit ? (
@@ -88,7 +92,11 @@ class UsersPage extends React.Component {
                         updateUser={this.handleUpdateUser}
                     />
                 ) : this.state.isAdd ? (
-                    <AddUserForm setAdding={this.setAdding} addUser={this.handleAddUser} />
+                    <div>
+                        {status && <div className={'alert alert-danger'}>{status}</div>}
+
+                        <AddUserForm setAdding={this.setAdding} addUser={this.handleAddUser} />
+                    </div>
                 ) : <button onClick={this.callAddUser} className="btn btn-primary">Add new user</button>
                 }
                 <h2>List users</h2>

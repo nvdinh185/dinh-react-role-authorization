@@ -24,7 +24,7 @@ export const EditUserForm = (props) => {
       }}
     >
       <label>Username</label>
-      <input type="text" name="username" value={user.username} onChange={handleInputChange} /><br />
+      <input type="text" disabled value={user.username} /><br />
       <label>Firstname</label>
       <input type="text" name="firstname" value={user.firstname} onChange={handleInputChange} /><br />
       <label>Lastname</label>

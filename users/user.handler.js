@@ -25,16 +25,26 @@ async function deleteById({ id }) {
 
 async function addNewUser(user) {
     return new Promise((resolve, reject) => {
-        db.run(`INSERT INTO users VALUES (?, ?, ?, ?, ?, ?)`,
-            [user.id, user.username, user.password, user.firstname,
-            user.lastname, user.role], function (err) {
-                if (err) {
-                    // console.error(`Lỗi ${err.message}`);
-                    reject(new Error(err.message));
+        db.all(`SELECT * FROM users WHERE username = '${user.username}'`, (err, row) => {
+            if (err) {
+                reject(new Error(err.message));
+            } else {
+                if (row?.[0]) {
+                    reject(new Error("User này đã tồn tại!"));
+                } else {
+                    db.run(`INSERT INTO users VALUES (?, ?, ?, ?, ?, ?)`,
+                        [user.id, user.username, user.password, user.firstname,
+                        user.lastname, user.role], function (err) {
+                            if (err) {
+                                // console.error(`Lỗi ${err.message}`);
+                                reject(new Error(err.message));
+                            }
+                            // console.log(`this.changes: ${this.changes}`);
+                            resolve(this.changes);
+                        });
                 }
-                // console.log(`this.changes: ${this.changes}`);
-                resolve(this.changes);
-            });
+            }
+        });
     });
 }
 
