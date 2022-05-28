@@ -1,5 +1,5 @@
 import React from 'react';
-import regeneratorRuntime from "regenerator-runtime";
+// import regeneratorRuntime from "regenerator-runtime";
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -39,6 +39,8 @@ class UsersPage extends React.Component {
             } catch (error) {
                 console.log(`Lỗi: ${error}`);
             }
+        } else {
+            alert("Bạn không thể xóa chính mình!");
         }
     }
 
@@ -52,8 +54,7 @@ class UsersPage extends React.Component {
         try {
             await userHandler.addNewUser(user);
             const newListUsers = [...this.state.users, user];
-            this.setState({ users: newListUsers });
-            this.setState({ isAdd: false });
+            this.setState({ isAdd: false, users: newListUsers });
         } catch (error) {
             // console.log(`Lỗi: ${error}`);
             this.setState({ status: `${error}` });
@@ -61,21 +62,18 @@ class UsersPage extends React.Component {
     }
 
     setAdding = () => {
-        this.setState({ isAdd: false });
-        this.setState({ status: '' });
+        this.setState({ isAdd: false, status: '' });
     }
 
     callUpdateUser = (user) => {
-        this.setState({ isEdit: true });
-        this.setState({ currentUser: user });
+        this.setState({ isEdit: true, currentUser: user });
     }
 
     handleUpdateUser = async (updatedUser) => {
         try {
             await userHandler.updateUser(updatedUser);
             const newListUsers = this.state.users.map(user => (user.id === updatedUser.id ? updatedUser : user));
-            this.setState({ users: newListUsers });
-            this.setState({ isEdit: false });
+            this.setState({ isEdit: false, users: newListUsers });
         } catch (error) {
             console.log(`Lỗi: ${error}`);
         }

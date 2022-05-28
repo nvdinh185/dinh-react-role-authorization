@@ -9,15 +9,15 @@ const getToken = () => {
   return token;
 }
 
-const tokenClient = axios.create({
+const axiosClient = axios.create({
   baseURL: config.apiUrl,
   headers: {
     'content-type': 'application/json',
   },
-  paramsSerializer: params => queryString.stringify(params),
+  // paramsSerializer: params => queryString.stringify(params),
 });
 
-tokenClient.interceptors.request.use(config => {
+axiosClient.interceptors.request.use(config => {
   const token = getToken();
   // console.log("token: ", token);
   if (token) {
@@ -27,7 +27,7 @@ tokenClient.interceptors.request.use(config => {
   return config;
 });
 
-tokenClient.interceptors.response.use((response) => {
+axiosClient.interceptors.response.use((response) => {
   if (response && response.data) {
     return response.data;
   }
@@ -38,4 +38,4 @@ tokenClient.interceptors.response.use((response) => {
   throw error;
 });
 
-export default tokenClient;
+export default axiosClient;

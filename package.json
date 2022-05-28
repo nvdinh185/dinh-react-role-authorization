@@ -8,6 +8,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon server/server.js",
+    "test": "react-scripts start",
     "build": "react-scripts build"
   },
   "dependencies": {

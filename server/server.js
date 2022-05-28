@@ -1,5 +1,4 @@
-﻿require('rootpath')();
-const express = require('express');
+﻿const express = require('express');
 const app = express();
 const path = require('path');
 const cors = require('cors');
@@ -15,12 +14,12 @@ app.use(express.static(publicPath));
 // // api routes
 app.use('/users', require('./users/users.controller'));
 
+// global error handler
+app.use(errorHandler);
+
 app.get('/*', function (req, res) {
     res.sendFile(path.join(publicPath, 'index.html'));
 });
-
-// global error handler
-app.use(errorHandler);
 
 // start server
 const port = process.env.PORT || 4000;

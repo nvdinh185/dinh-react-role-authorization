@@ -40,10 +40,13 @@ class SignupPage extends React.Component {
                                     this.props.history.push('/');
                                 },
                                 error => {
+                                    console.log(error);
                                     setSubmitting(false);
                                     setStatus(error);
                                 }
-                            );
+                            ).catch(error => {
+                                console.log(error);
+                            });
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <Form>

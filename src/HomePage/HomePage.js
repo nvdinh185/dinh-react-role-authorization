@@ -15,6 +15,7 @@ class HomePage extends React.Component {
     async componentDidMount() {
         const { currentUser } = this.state;
         let userFromApi = await userService.getUserById(currentUser.id);
+        // console.log(userFromApi);
         this.setState({ userFromApi });
     }
 

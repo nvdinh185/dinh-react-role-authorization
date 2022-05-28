@@ -32,7 +32,6 @@ class LoginPage extends React.Component {
                         password: Yup.string().required('Password is required')
                     })}
                     onSubmit={({ username, password }, { setStatus, setSubmitting }) => {
-                        setStatus();
                         authenticationService.login(username, password)
                             .then(
                                 user => {
@@ -40,9 +39,11 @@ class LoginPage extends React.Component {
                                 },
                                 error => {
                                     setSubmitting(false);
-                                    setStatus(error);
+                                    setStatus("Xảy ra lỗi trong quá trình login!");
                                 }
-                            );
+                            ).catch(error => {
+                                console.log(error);
+                            });
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <Form>

@@ -13,23 +13,28 @@ export const authenticationService = {
 
 async function signup(username, password, firstname, lastname) {
     const userInfo = { username, password, firstname, lastname };
-    const lastID = await axiosClient.post('/users/signup', userInfo);
-    // console.log("lastID: ", lastID);
-    return lastID;
+    try {
+        const lastID = await axiosClient.post('/users/signup', userInfo);
+        // console.log("lastID: ", lastID);
+        return lastID;
+    } catch (error) {
+        // console.log("error: ", error);
+        throw "Xảy ra lỗi!";
+    }
 }
 
 async function login(username, password) {
-    let user = [];
     const userInfo = { username, password };
     try {
-        user = await axiosClient.post('/users/login', userInfo);
+        let user = await axiosClient.post('/users/login', userInfo);
         localStorage.setItem('currentUser', JSON.stringify(user));
         currentUserSubject.next(user);
         // console.log("user: ", user);
+        return user;
     } catch (error) {
         console.log("error: ", error);
+        throw new Error("Lỗi: ", error);
     }
-    return user;
 }
 
 function logout() {
