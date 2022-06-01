@@ -6,4 +6,4 @@ pipelines:
         script:
           - npm install
           - npm run build
-          - git push https://heroku:38c94d1e-065a-453f-b8b8-7f86190a45d3@git.heroku.com/dinh-react-role-authorization.git HEAD
+          - git push https://heroku:38c94d1e-065a-453f-b8b8-7f86190a45d3@git.heroku.com/dinh-react-role-authorization.git HEAD -f

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import queryString from 'query-string';
 import config from '../config.json';
 import { authenticationService } from '../_services/authentication.service';
 
@@ -14,7 +13,6 @@ const axiosClient = axios.create({
   headers: {
     'content-type': 'application/json',
   },
-  // paramsSerializer: params => queryString.stringify(params),
 });
 
 axiosClient.interceptors.request.use(config => {

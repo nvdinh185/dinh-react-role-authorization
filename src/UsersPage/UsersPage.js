@@ -32,12 +32,15 @@ class UsersPage extends React.Component {
 
     deleteUser = async (id) => {
         if (authenticationService.currentUserValue.id != id) {
-            try {
-                await userHandler.deleteById(id);
-                const newListUsers = this.state.users.filter((user) => user.id !== id);
-                this.setState({ users: newListUsers });
-            } catch (error) {
-                console.log(`Lỗi: ${error}`);
+            const answer = window.confirm("Bạn có chắc muốn xóa không?");
+            if (answer) {
+                try {
+                    await userHandler.deleteById(id);
+                    const newListUsers = this.state.users.filter((user) => user.id !== id);
+                    this.setState({ users: newListUsers });
+                } catch (error) {
+                    console.log(`Lỗi: ${error}`);
+                }
             }
         } else {
             alert("Bạn không thể xóa chính mình!");
