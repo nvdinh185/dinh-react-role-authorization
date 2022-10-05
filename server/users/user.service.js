@@ -17,7 +17,7 @@ module.exports = {
 
 async function signup({ username, password, firstname, lastname }) {
     return new Promise((resolve, reject) => {
-        db.run(`INSERT INTO users(id, username, password, firstname, lastname, role) VALUES(?, ?, ?, ?, ?, ?)`,
+        db.run(`INSERT INTO users (id, username, password, firstname, lastname, role) VALUES (?, ?, ?, ?, ?, ?)`,
             [uuidv4(), username, password, firstname, lastname, 2], function (err) {
                 if (err) reject(new Error(`Lỗi: ${err.message}`));
                 resolve(this.lastID);

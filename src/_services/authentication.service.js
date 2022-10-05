@@ -9,7 +9,7 @@ export const authenticationService = {
     logout,
     currentUser: currentUserSubject.asObservable(),
     get currentUserValue() { return currentUserSubject.value }
-};
+}
 
 async function signup(username, password, firstname, lastname) {
     const userInfo = { username, password, firstname, lastname };
@@ -26,13 +26,13 @@ async function signup(username, password, firstname, lastname) {
 async function login(username, password) {
     const userInfo = { username, password };
     try {
-        let user = await axiosClient.post('/users/login', userInfo);
+        const user = await axiosClient.post('/users/login', userInfo);
         localStorage.setItem('currentUser', JSON.stringify(user));
         currentUserSubject.next(user);
         // console.log("user: ", user);
         return user;
     } catch (error) {
-        console.log("error: ", error);
+        // console.log("error: ", error);
         throw new Error("Lỗi: ", error);
     }
 }

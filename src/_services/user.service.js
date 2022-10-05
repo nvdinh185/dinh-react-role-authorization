@@ -3,7 +3,7 @@ import axiosClient from "../api/axiosClient";
 export const userService = {
     getAll,
     getUserById
-};
+}
 
 async function getAll() {
     let users = await axiosClient.get('/users');

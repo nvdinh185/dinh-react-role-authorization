@@ -1,5 +1,4 @@
 import React from 'react';
-// import regeneratorRuntime from "regenerator-runtime";
 
 import { v4 as uuidv4 } from 'uuid';
 
