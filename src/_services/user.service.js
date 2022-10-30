@@ -6,7 +6,7 @@ export const userService = {
 }
 
 async function getAll() {
-    let users = await axiosClient.get('/users');
+    const users = await axiosClient.get('/users');
     // console.log(users);
     return users;
 }
