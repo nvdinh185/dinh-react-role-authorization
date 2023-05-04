@@ -29,7 +29,7 @@ async function addNewUser(user) {
             if (err) {
                 reject(new Error(err.message));
             } else {
-                if (row?.[0]) {
+                if (row && row[0]) {
                     reject(new Error("User này đã tồn tại!"));
                 } else {
                     db.run(`INSERT INTO users VALUES (?, ?, ?, ?, ?, ?)`,
